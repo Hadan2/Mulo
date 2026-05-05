@@ -79,27 +79,7 @@ YouTube 기능은 한국 시장 확장을 위한 중요한 후보지만, 아직 
 
 ### 4.4. 성공 기준을 정하고 검증하기
 
-작업을 시작할 때 가능하면 성공 기준을 정한다.
-
-예시:
-
-- "Moment 생성 validation 추가"
-  - 시작 시간이 종료 시간보다 작아야 한다.
-  - 구간 길이는 15~30초여야 한다.
-  - 잘못된 값에 대한 테스트가 있어야 한다.
-
-- "Spotify 재생 구현"
-  - Premium + App Remote 연결 시 `seekTo()`가 호출된다.
-  - 연결 실패 시 외부 앱 열기 fallback이 동작한다.
-  - 실패 상태가 UI에 표시된다.
-
-구현 후 가능한 검증을 실행한다.
-
-- 정적 분석
-- 단위 테스트
-- 위젯 테스트
-- 수동 실행 확인
-- 관련 문서 업데이트 여부 확인
+작업 시작 전 성공 기준을 정한다. 구현 후 정적 분석, 단위 테스트, 수동 실행으로 검증한다.
 
 ---
 
@@ -128,35 +108,9 @@ Widget
 
 ---
 
-## 6. 권장 폴더 구조
+## 6. 재생 전략
 
-```text
-lib/
-├── core/
-│   ├── router.dart
-│   ├── theme.dart
-│   ├── constants.dart
-│   └── errors/
-├── data/
-│   ├── models/
-│   ├── repositories/
-│   └── services/
-├── presentation/
-│   ├── auth/
-│   ├── feed/
-│   ├── moment/
-│   ├── group/
-│   └── player/
-└── shared/
-    ├── widgets/
-    └── providers/
-```
-
-이 구조와 다르게 구현해야 할 이유가 있으면 먼저 이유를 설명한다.
-
----
-
-## 7. 재생 전략
+상세 내용은 `Plandoc/MusicLog_Plan_Tech.md` 섹션 2 참조.
 
 Spotify 우선순위:
 
@@ -215,25 +169,10 @@ MVP에서 제외한다.
 
 ## 9. 데이터 모델 기준
 
-기본 도메인 모델은 기존 기획서를 따른다.
+도메인 모델은 `Plandoc/MusicLog_Plan_Tech.md` 섹션 5를 따른다.
 
-- Users
-- ConnectedAccounts
-- Tracks
-- TrackSources
-- Moments
-- MomentSources
-- Groups
-- GroupMembers
-- Reactions
-- Replies
-
-중요한 해석:
-
-- Moment는 사용자가 올린 소셜 게시물이다.
-- MomentSource는 재생 플랫폼과 타임스탬프 정보를 담는다.
 - MVP에서는 Moment 하나가 하나의 그룹에만 공유된다.
-- 다중 그룹 공유는 Phase 3 이후 `MomentGroups` 같은 N:N 테이블로 확장한다.
+- 다중 그룹 공유는 Phase 3 이후 `MomentGroups` N:N 테이블로 확장한다.
 
 ---
 
@@ -250,17 +189,14 @@ MVP에서 제외한다.
 
 ---
 
-## 11. AI가 특히 조심할 것
+## 11. Flutter / Android Studio 답변 원칙
 
-다음 행동은 하지 않는다.
+Flutter, Dart, Android Studio 관련 질문에 답변할 때는 추론하지 않는다.
 
-- "편의를 위해" 오디오 클립 저장 기능 추가
-- "UX 개선을 위해" YouTube 플레이어 숨김
-- "나중에 필요할 수 있으니" 대형 추상화 추가
-- 요청받지 않은 인증 방식 추가
-- 요청받지 않은 소셜 기능 추가
-- 기존 문서와 반대되는 구현을 설명 없이 진행
-- 테스트 없이 핵심 재생 로직 완료 처리
+- 반드시 공식 문서 또는 웹 검색으로 정확한 내용을 확인한 후 답변한다.
+- 버전에 따라 UI나 문법이 다를 수 있으므로 최신 버전 기준으로 검색한다.
+- 확인되지 않은 내용을 "아마도", "보통은" 식으로 추측해서 답변하지 않는다.
+- 검색 결과와 실제 UI가 다를 수 있으므로, 답변이 틀렸다는 피드백을 받으면 즉시 재검색한다.
 
 ---
 
@@ -278,10 +214,3 @@ MVP에서 제외한다.
 
 ---
 
-## 13. 참고 문서
-
-상세 제품/기술/아키텍처 결정은 아래 문서를 우선한다.
-
-- `Plandoc/MusicLog_Plan_Product.md`
-- `Plandoc/MusicLog_Plan_Tech.md`
-- `Plandoc/MusicLog_Architecture.md`
